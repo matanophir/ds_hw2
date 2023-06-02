@@ -1,0 +1,14 @@
+build/
+.vscode
+.DS_Store
+CMakeFiles/
+CMakeCache.txt
+runnable
+Makefile
+.clang-format
+# CMakeLists.txt
+.cmake/
+cmake_install.cmake
+.cache/
+cmake-build-debug
+.idea
