@@ -656,7 +656,7 @@ void AvlTree<T,C_e,C_lt>::in_order_insertArr(int* ids)
 }
 
 /**
- * @brief does inorder and activate Func on each element
+ * @brief does inorder and activate Func on each element (shard_ptr)
  *
  * @tparam Func the func to activate
  */
@@ -681,7 +681,7 @@ void AvlTree<T,C_e,C_lt>::in_order_Wfunc(Func func)
                 prev = curr;
                 curr = curr->left;
             }
-            func(*(curr -> data_ptr));
+            func(curr -> data_ptr);
             // cout << curr->data_ptr << endl;
             if (curr->right != nullptr) // if can go right
             {
@@ -700,7 +700,7 @@ void AvlTree<T,C_e,C_lt>::in_order_Wfunc(Func func)
 
         if (curr->left == prev) // if rose from left
         {
-            func(*(curr -> data_ptr));
+            func(curr -> data_ptr);
             // cout << curr->data_ptr << endl;
             if (curr->right != nullptr)
             {
@@ -789,6 +789,24 @@ struct Complex_lt
         }
         return false;
 
+    }
+};
+
+template <typename T>
+struct Def_e
+{
+    bool operator()(T& a,T& b)
+    {
+        return a== b;
+    }
+};
+
+template <typename T>
+struct Def_lt
+{
+    bool operator()(T& a,T& b)
+    {
+        return a< b;
     }
 };
 #endif // !AvlTree_h

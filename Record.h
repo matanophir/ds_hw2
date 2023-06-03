@@ -4,8 +4,12 @@
 
 class Record {
 public:
-    Record(int id, int copies):id(id), copies(copies), month_purchases(0){};
+    explicit Record(int id, int copies = 1):id(id), copies(copies), month_purchases(0){};
+    bool operator==(const Record& other){return id == other.id;};
+    bool operator<(const Record& other){return id < other.id;};
     ~Record() = default;
+
+    // int get_hash_id(){return id;}; 
 
     int id;
     int copies;

@@ -4,8 +4,12 @@
 
 class Customer {
 public:
-    Customer(int id, int phone): id(id), phone(phone), monthly_expenses(0), member(false){};
+    explicit Customer(int id, int phone = 0): id(id), phone(phone), monthly_expenses(0), member(false){};
+    bool operator==(const Customer& other){return id == other.id;};
+    bool operator<(const Customer& other){return id < other.id;};
     ~Customer() = default;
+
+    // int get_hash_id(){return id;}; // if want to hash with different params
 
     int id;
     int phone;
