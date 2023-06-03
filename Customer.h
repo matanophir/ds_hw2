@@ -1,7 +1,17 @@
 
-#ifndef Costumer_h
-#define Costumer_h
+#ifndef Customer_h
+#define Customer_h
 
+class Customer {
+public:
+    Customer(int id, int phone): id(id), phone(phone), monthly_expenses(0), member(false){};
+    ~Customer() = default;
 
+    int id;
+    int phone;
+    int monthly_expenses;
+    bool member;
+private: // might as well just do struct
+};
 
-#endif // !Costumer_h
+#endif // !Customer_h
