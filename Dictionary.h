@@ -7,7 +7,7 @@
 #include "AvlTree.h"
 
 using namespace std;
-#define BASE_M 3
+#define BASE_M 47
 
 template <typename T>
 class Insert_elem_func;
