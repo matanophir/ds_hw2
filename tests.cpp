@@ -6,6 +6,8 @@
 #include "utilesWet2.h"
 #include <memory>
 #include <stdio.h>
+#include "recordsCompany.h"
+
 using namespace std;
 #define SIZE 5
 
@@ -13,6 +15,17 @@ int main (int argc, char *argv[]) {
     
     StatusType status(StatusType::SUCCESS);
     bool result= false;
+
+    // //recordsCompany tests
+    // RecordsCompany* rc = new RecordsCompany();
+    // int rec[5] = {1,2,3,4,5};
+    //
+    // status = rc->newMonth(rec, 5);
+    // cout << result;
+    //
+    // delete rc;
+
+
 
     //RankTree test
     shared_ptr<Customer> arr[10];
@@ -54,7 +67,7 @@ int main (int argc, char *argv[]) {
     result = tree1.get_extra(*arr[3]) == 0;
     result = tree1.get_extra(*arr[4]) == 0;
 
-    
+
     // check ranges
     result = tree1.get_extra(*arr[0]) == 0;
     result = tree1.get_extra(*arr[1]) == 10;
@@ -66,10 +79,13 @@ int main (int argc, char *argv[]) {
     result = tree1.get_extra(*arr[7]) == 0;
     result = tree1.get_extra(*arr[8]) == 0;
     result = tree1.get_extra(*arr[9]) == 0;
-    
+
 
     tree1.add_extra(*arr[8], 7);
     tree1.add_extra(*arr[5], -7);
+
+    tree1.add_extra(Customer(14), 8);
+    tree1.add_extra(*arr[9], -8);
     result = tree1.get_extra(*arr[0]) == 0;
     result = tree1.get_extra(*arr[1]) == 10;
     result = tree1.get_extra(*arr[2]) == 5;
@@ -79,7 +95,7 @@ int main (int argc, char *argv[]) {
     result = tree1.get_extra(*arr[6]) == 7;
     result = tree1.get_extra(*arr[7]) == 7;
     result = tree1.get_extra(*arr[8]) == 0;
-    result = tree1.get_extra(*arr[9]) == 0;
+    result = tree1.get_extra(*arr[9]) == 8;
 
     cout << result;
 
@@ -92,6 +108,7 @@ int main (int argc, char *argv[]) {
     // }
     //
     // UF<Record> uf(arr,SIZE);
+    // auto record = uf.get_elem(0);
     // result = uf.find(0) == 0;
     // uf.unio(0, 1);
     // result = uf.find(0) == 1;
@@ -113,7 +130,7 @@ int main (int argc, char *argv[]) {
     //
     //
     // cout << result;
-    // 
+    //
     // delete [] arr;
     //
     // // Unifying a structure with more than two elements
@@ -136,7 +153,7 @@ int main (int argc, char *argv[]) {
     // uf2.unio(0, 4);
     // result = uf2.find(3,true) == 9;
     // result = uf2.find(0,true) == 30;
-    // 
+    //
     // result = uf2.find(0) == 4;
     // result = uf2.find(1) == 4;
     // result = uf2.find(2) == 4;
@@ -145,7 +162,7 @@ int main (int argc, char *argv[]) {
     // cout << result;
     //
     // delete [] arr2;
-    //
+
 
     // // dict tests
     // auto cust1 = make_shared<Customer>(34667);

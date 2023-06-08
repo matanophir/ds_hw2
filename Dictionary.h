@@ -18,6 +18,9 @@ public:
     StatusType insert(shared_ptr<T> data_ptr);
     shared_ptr<T> del(int id);
     shared_ptr<T> get(int id);    
+
+    template<typename Func>
+    StatusType func_on_all_elems(Func func);
     
     Dictionary(): table(new AvlTree<T, Def_e<T>, Def_lt<T>>[BASE_M]), table_size(BASE_M), num_of_elems(0){};
     ~Dictionary() {delete[] table;};
@@ -79,6 +82,17 @@ int Dictionary<T>::hash(int id)
     return id % table_size;
 }
 
+template<typename T>
+template<typename Func>
+StatusType Dictionary<T>::func_on_all_elems(Func func)
+{
+
+    AvlTree<T, Def_e<T>, Def_lt<T>> tree;
+    for (int i = 0; i < table_size ; i++) {
+       table[i].in_order_Wfunc(func);
+    }
+    return StatusType::SUCCESS; //later maybe get the return val from the func
+}
 
 template<typename T>
 void Dictionary<T>::_check_table_size()
@@ -138,6 +152,8 @@ StatusType Dictionary<T>::_add(shared_ptr<T> data_ptr)
 {
     int index = hash(data_ptr->id);
     StatusType status = table[index].add_node(data_ptr);
+    if (status == StatusType::FAILURE) // why did the errors change 😡😡
+        return StatusType::ALREADY_EXISTS;
     if (status!=StatusType::SUCCESS)
         return status;
 

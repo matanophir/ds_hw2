@@ -8,6 +8,7 @@
 
 using namespace std;
 
+class RecordsCompany;
 
 template <typename T, typename C_e, typename C_lt>
 class RankTree
@@ -25,7 +26,7 @@ public:
     shared_ptr<T> get(U&& dataT);
 
     template <typename U>
-    void add_extra(U&& dataT, int to_add);   // uni-ref just cause its standard here..
+    void add_extra(U&& dataT, double to_add);   // uni-ref just cause its standard here..
 
     template <typename U>
     int get_extra(U&& dataT);
@@ -36,10 +37,14 @@ public:
     template<typename Func>
     void in_order_Wfunc(Func func);
 
+    template<typename Func>
+    void in_order_WNodefunc(Func func);
+
     RankTree() : size(0), cond_e(C_e()),cond_lt(C_lt()){};
     ~RankTree() = default; // should be taken care of with smart ptrs..
 
 private:
+    friend RecordsCompany;
     class Node;
     shared_ptr<Node> root;
     void in_order(shared_ptr<Node> node); // for testing
@@ -80,13 +85,14 @@ public:
     bool operator<(T &dataT);
 
 private:
+    friend RecordsCompany;
     shared_ptr<Node> left;
     shared_ptr<Node> right;
     weak_ptr<Node> parent; // avoid cyclic reference - dem trickss
     RankTree<T,C_e,C_lt>* tree;
 
     int height;
-    int extra;
+    double extra;
 };
 
 // node implementation
@@ -746,6 +752,66 @@ void RankTree<T,C_e,C_lt>::in_order_Wfunc(Func func)
     }
 }
 
+template <typename T, typename C_e, typename C_lt>
+template<typename Func>
+void RankTree<T,C_e,C_lt>::in_order_WNodefunc(Func func)
+{
+    shared_ptr<Node> curr = root;
+    shared_ptr<Node> prev = nullptr;
+
+    if (curr == nullptr)
+    {
+        return;
+    }
+
+    while (curr != nullptr)
+    {
+        if (prev == nullptr || prev->right == curr) // if now at the start or got down to the right branch
+        {
+            while (curr->left != nullptr)
+            {
+                prev = curr;
+                curr = curr->left;
+            }
+            func(curr);
+            // cout << curr->data_ptr << endl;
+            if (curr->right != nullptr) // if can go right
+            {
+
+                prev = curr;
+                curr = curr->right;
+                continue;
+            }
+            else
+            {
+                prev = curr;
+                curr = curr->parent.lock();
+                continue;
+            }
+        }
+
+        if (curr->left == prev) // if rose from left
+        {
+            func(curr );
+            // cout << curr->data_ptr << endl;
+            if (curr->right != nullptr)
+            {
+                prev = curr;
+                curr = curr->right;
+            }
+            else
+            {
+                prev = curr;
+                curr = curr->parent.lock();
+            }
+        }
+        else if (curr->right == prev) // rose from right
+        {
+            prev = curr;
+            curr = curr->parent.lock();
+        }
+    }
+}
 /**
  * @brief adds 'to_add' to obj<dataT
  *
@@ -753,7 +819,7 @@ void RankTree<T,C_e,C_lt>::in_order_Wfunc(Func func)
  */
 template <typename T, typename C_e, typename C_lt>
 template<typename U>
-void RankTree<T,C_e,C_lt>::add_extra(U&& dataT, int to_add)
+void RankTree<T,C_e,C_lt>::add_extra(U&& dataT, double to_add)
 {
     shared_ptr<Node> curr_node = root;
     bool right_streak= false;

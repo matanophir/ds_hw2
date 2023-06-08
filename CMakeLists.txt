@@ -17,5 +17,6 @@ set(MTM_FLAGS_RELEASE "${MTM_FLAGS_DEBUG} -DNDEBUG")
 # Set the flags for gcc c++
 set(CMAKE_CXX_FLAGS ${MTM_FLAGS_DEBUG})
 
-add_executable(prog tests.cpp)
+# add_executable(prog tests.cpp recordsCompany.cpp)
+add_executable(prog mainWet2.cpp recordsCompany.cpp)
 

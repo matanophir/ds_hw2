@@ -2,15 +2,30 @@
 #define RECORDS_COMPANY_H
 
 #include "utilesWet2.h"
-
+#include "AvlTree.h"
+#include "RankTree.h"
+#include "Dictionary.h"
+#include "UF.h"
+#include "Customer.h"
+#include "Record.h"
+#include <memory>
 
 
 class RecordsCompany {
   private:
     // todo
+
+      Dictionary<Customer> customers_dict;
+      RankTree<Customer, Def_e<Customer>, Def_lt<Customer>> members_rtree;
+      unique_ptr<UF<Record>> records_uf;
+
+      typedef RankTree<Customer, Def_e<Customer>, Def_lt<Customer>>::Node Node;
+
   public:
-    RecordsCompany();
-    ~RecordsCompany();
+    RecordsCompany():customers_dict(Dictionary<Customer>()), 
+                    members_rtree(RankTree<Customer, Def_e<Customer>, Def_lt<Customer>>()), 
+                    records_uf(nullptr){};
+    ~RecordsCompany() = default;
     StatusType newMonth(int *records_stocks, int number_of_records);
     StatusType addCostumer(int c_id, int phone);
     Output_t<int> getPhone(int c_id);

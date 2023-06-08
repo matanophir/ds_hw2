@@ -11,7 +11,9 @@ public:
     ~UF() = default;
     int find(int id, bool weighted = false);
     int unio(int p, int q);
+    shared_ptr<T> get_elem(int id);
     
+    int num_of_elems;
 
 private:
     
@@ -20,7 +22,6 @@ private:
     unique_ptr<Group_Node[]> groups;
     unique_ptr<Node[]> nodes;
     void _shrink_path(Node* first_node, Node* last_node,int w_sum);
-    int num_of_elems;
 
     
 };
@@ -76,6 +77,14 @@ UF<T>::UF(shared_ptr<T> elems[],int num_of_elems) {
 
 }
 
+
+template<typename T>
+shared_ptr<T> UF<T>::get_elem(int id)
+{
+    if (id < 0 || id >= num_of_elems )
+        return nullptr;
+    return nodes[id].data_ptr;
+}
 
 template<typename T>
 int UF<T>::find(int id, bool weighted)

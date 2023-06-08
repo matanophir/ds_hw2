@@ -9,7 +9,7 @@ buyRecord: SUCCESS
 buyRecord: SUCCESS
 getExpenses: 100
 addPrize: SUCCESS
-getExpenses: 145
+getExpenses: 55
 putOnTop: SUCCESS
 putOnTop: SUCCESS
 getPlace: column=37, hight=12
