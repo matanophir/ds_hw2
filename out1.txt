@@ -1,0 +1,27 @@
+addCostumer: SUCCESS
+addCostumer: SUCCESS
+addCostumer: ALREADY_EXISTS
+getPhone: 94069
+getPhone: DOESNT_EXISTS
+newMonth: SUCCESS
+newMonth: SUCCESS
+isMember: False
+makeMember: SUCCESS
+isMember: True
+makeMember: SUCCESS
+makeMember: DOESNT_EXISTS
+isMember: DOESNT_EXISTS
+buyRecord: SUCCESS
+buyRecord: SUCCESS
+buyRecord: SUCCESS
+getExpenses: 100
+getExpenses: 201
+addPrize: SUCCESS
+addPrize: SUCCESS
+getExpenses: 156
+getExpenses: DOESNT_EXISTS
+putOnTop: SUCCESS
+putOnTop: SUCCESS
+getPlace: column=37, hight=12
+getPlace: column=37, hight=1
+getPlace: column=37, hight=0

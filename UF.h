@@ -100,7 +100,8 @@ int UF<T>::find(int id, bool weighted)
         w_sum+= node->weight;
     }
 
-    if (first_node->id != node->id || (first_node->father != nullptr && first_node->father->id != node->id))
+        
+    if (first_node->id != node->id && (first_node->father != nullptr && first_node->father->id != node->id))
         _shrink_path(first_node, node, w_sum);
     
     if (weighted)
@@ -120,6 +121,7 @@ void UF<T>::_shrink_path(Node* first_node, Node* last_node,int w_sum)
     {
         node->weight+=sum;
         sum -= next_node->weight;
+        node->father = last_node;
         node = next_node;
         next_node = next_node->father;
     }
