@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/prog",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerArgs": "-ex \"run < ./DataStructures-spring2023-Wet2Test/inFiles/test20.in\"",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
